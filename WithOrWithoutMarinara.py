@@ -2,7 +2,11 @@
 
 import random
 
-# Weather data with safety speed limits (mph)
+# Trip details
+distance_miles = 30
+time_limit_minutes = 30
+
+# Weather data with safe speed limits (mph)
 weather_events = {
     "Sunny": {"temp": (70, 100), "intensity": "Clear", "max_speed": 70},
     "Rain": {"temp": (45, 75), "intensity": "Wet roads", "max_speed": 55},
@@ -23,17 +27,30 @@ data = weather_events[event]
 temperature = random.randint(*data["temp"])
 max_speed = data["max_speed"]
 
+# Calculate travel time
+travel_time_hours = distance_miles / max_speed
+travel_time_minutes = travel_time_hours * 60
+
 # Car "conversation"
 print("🚗 Car System Online")
 print("🌦️ Checking weather conditions...")
 print(f"Weather detected: {event}")
 print(f"Temperature: {temperature}°F")
 print(f"Road condition: {data['intensity']}")
+print(f"🚘 Max safe speed: {max_speed} mph")
 
-if max_speed < 60:
-    print("⚠️ Warning: Unsafe driving conditions detected.")
+print("\n🧭 Trip Analysis")
+print(f"Distance to destination: {distance_miles} miles")
+print(f"Time available: {time_limit_minutes} minutes")
+print(f"Estimated travel time: {travel_time_minutes:.1f} minutes")
+
+if travel_time_minutes > time_limit_minutes:
+    extra_time = travel_time_minutes - time_limit_minutes
+    print("\n⏰ ALERT: You will arrive late!")
+    print(f"You need an extra {extra_time:.1f} minutes.")
+    print("📱 Setting alarm earlier to compensate for weather conditions.")
 else:
-    print("✅ Conditions are safe for normal driving.")
+    print("\n✅ You will arrive on time.")
+    print("No alarm adjustment needed.")
 
-print(f"🚘 Recommended maximum speed: {max_speed} mph")
-print("Drive safe!")
+print("\nDrive safe! 🚙")
